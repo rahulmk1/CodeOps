@@ -1,0 +1,189 @@
+
+#provider
+
+provider "aws" {
+  region = "ap-south-1"
+}
+
+#vpc
+
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+
+  tags = {
+    Name = "Team_code_ops_VPC"
+  }
+}
+
+#EC2
+
+resource "aws_instance" "web" {
+  ami           = "ami-0a07ff89aacad043e" 
+  instance_type = "t2.micro"
+  subnet_id     = aws_subnet.public.id
+
+  tags = {
+    Name = "Team_code_ops_EC2"
+  }
+}
+
+#InternetGateWay
+
+resource "aws_internet_gateway" "gw" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "Team_code_ops_Internet_Gateway"
+  }
+}
+
+
+
+#Subnet
+
+resource "aws_subnet" "public" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.1.0/24"
+  availability_zone = "ap-sount-1a"
+
+  tags = {
+    Name = "Team_code_ops_Subnet_A"
+  }
+}
+
+resource "aws_subnet" "private" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.2.0/24"
+  availability_zone = "ap-south-1a"
+
+  tags = {
+    Name = "Team_code_ops_Subnet_B"
+  }
+}
+
+#rds
+
+resource "aws_db_instance" "my_rds" {
+  allocated_storage    = 20
+  engine             = "mysql"
+  engine_version     = "8.0.35"  # Specify the desired MySQL version
+  instance_class     = "db.t3.micro"
+  db_name            = "team_code_ops_mysdl_rds"  # Initial database name
+  username           = "admin"
+  password           = "teamcodeops"  # Use a secure method to manage passwords
+  db_subnet_group_name = aws_db_subnet_group.public.name
+  vpc_security_group_ids = [aws_security_group.rds_sg.id]  # Ensure you have a security group allowing access
+
+  skip_final_snapshot = true
+  publicly_accessible  = true  # Set to true to allow public access
+
+  tags = {
+    Name = "Team_code_ops_MySQL_RDS"
+  }
+}
+
+#routetable 
+
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gw.id
+  }
+
+  tags = {
+    Name = "Team_code_ops_Route_Table"
+  }
+}
+
+resource "aws_route_table_association" "public" {
+  subnet_id      = aws_subnet.public.id
+  route_table_id = aws_route_table.public.id
+}
+
+
+#s3
+
+# Create S3 bucket for static website hosting
+resource "aws_s3_bucket" "static_website_bucket" {
+  bucket = "team-code-ops-static-website-bucket"  # Ensure this bucket name is globally unique
+
+  website {
+    index_document = "index.html"
+    #error_document = "error.html"  # Optional, specify if you have a custom error page
+  }
+
+  tags = {
+    Name        = "team_code_ops_S3_SWH"
+    Environment = "Development"
+  }
+}
+
+# Create S3 bucket for RDS backups
+resource "aws_s3_bucket" "rds_backup_bucket" {
+  bucket = "team-code-ops-rds-backup-bucket"  # Ensure this bucket name is globally unique
+
+  tags = {
+    Name        = "Team_code_ops_S3_RDS_Backup"
+    Environment = "Development"
+  }
+}
+
+# Set object ownership controls for the static website bucket
+resource "aws_s3_bucket_ownership_controls" "static_website_bucket_ownership" {
+  bucket = aws_s3_bucket.static_website_bucket.id
+
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
+}
+
+# Set object ownership controls for the RDS backup bucket
+resource "aws_s3_bucket_ownership_controls" "rds_backup_bucket_ownership" {
+  bucket = aws_s3_bucket.rds_backup_bucket.id
+
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
+}
+
+
+
+
+#security group
+resource "aws_security_group" "rds_sg" {
+  vpc_id = aws_vpc.main.id
+
+  ingress {
+    from_port   = 3306  # MySQL default port
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = [aws_subnet.public.cidr_block]  # Allow access from the public subnet
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"  # Allow all outbound traffic
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "Team_code_ops_RDS_Security_Group"
+  }
+}
+
+#subnetgroup
+
+resource "aws_db_subnet_group" "public" {
+  name       = "Team_code_ops_public_subnet_group"
+  subnet_ids = [aws_subnet.public.id, aws_subnet.public_b.id]  # Include both subnets
+
+  tags = {
+    Name = "Team_code_ops_Public_Subnet_Group"
+  }
+}
+
