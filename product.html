@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Listing</title>
+    <style>
+      /* Existing CSS styles */
+*{
+    font-family: Assistant,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    box-sizing: border-box;
+}
+.product {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+}
+
+.product img {
+    max-width: 100%;
+    height: auto;
+}
+
+.product h2 {
+    font-size: 1.5em;
+}
+
+.product p {
+    margin: 10px 0;
+}
+
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('http://team-code-ops-alb-621106241.ap-south-1.elb.amazonaws.com/product.php')
+                .then(response => response.json())
+                .then(products => {
+                    const productList = document.getElementById('productList');
+                    productList.innerHTML = ''; // Clear any existing content
+                    products.forEach(product => {
+                        const productElement = document.createElement('div');
+                        productElement.classList.add('product');
+                        productElement.innerHTML = `
+                            <img src="${product.image_url}" alt="${product.name}" />
+                            <h2>${product.name}</h2>
+                            <p>${product.description}</p>
+                            <p>Price: $${product.price}</p>
+                        `;
+                        productList.appendChild(productElement);
+                    });
+                })
+                .catch(error => console.error('Error fetching products:', error));
+        });
+    </script> 
+</head>
+
+<body>
+    <header>
+        <h1>Product Listing</h1>
+        
+    </header>
+    <main>
+        <section id="productList">
+            <!-- Products will be inserted here by JavaScript -->
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 E-Commerce Store</p>
+    </footer>
+</body>
+</html>

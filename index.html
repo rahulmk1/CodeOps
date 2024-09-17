@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ECOMM</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+      * {
+    margin: 0;
+    padding: 0;
+    font-family: Assistant,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    box-sizing: border-box;
+}
+.product_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Centers the cards and distributes space */
+    gap: 20px; /* Space between product cards */
+    margin: 20px 0;
+}
+
+.product_card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 250px; /* Fixed width for each card */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product_card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.product_card img {
+    width: 100%;
+    height: auto;
+}
+
+.product_info {
+    padding: 15px;
+    text-align: center;
+}
+
+.product_title {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #333;
+}
+
+.product_price {
+    font-size: 1.1em;
+    color: #f54e77;
+    margin: 10px 0;
+}
+
+.product_button {
+    background-color: #f54e77;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.product_button:hover {
+    background-color: #d43f61;
+}
+header {
+    display: flex;
+    background-color: #ffffff;
+    height: 80px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #b6b1b1;
+}
+.myntra_home {
+    height: 45px;
+}
+.logo_container {
+    margin-left: 4%;
+}
+.action_bar {
+    margin-right: 4%;
+}
+.nav_bar {
+    display: flex;
+    min-width: 500px;
+    justify-content: space-evenly;
+}
+.nav_bar a {
+    font-size: 14px;
+    letter-spacing: .3px;
+    color: #282c3f;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 28px 0;
+    border-bottom: 5px solid #ffffff;
+}
+.nav_bar a:hover {
+    border-bottom: 4px solid #f54e77;
+}
+
+.nav_bar a sup {
+    color: #ff3f6c;
+    font-size: 10px;
+}
+
+.search_bar {
+    height: 40px;
+    min-width: 200px;
+    width: 30%;
+    display: flex;
+    align-items: center;
+}
+.search_icon {
+    box-sizing: content-box;
+    height: 20px;
+    padding: 10px;
+
+    background-color: #f5f5f6;
+    color: #282c3f;
+    font-weight: 300;
+    border-radius: 4px 0 0 4px;
+}
+.search_input {
+    color: #696e79;
+    background-color: #f5f5f6;
+    flex-grow: 1;
+    height: 40px;
+    border: 0;
+    border-radius: 0 4px 4px 0;
+}
+
+.action_bar {
+    display: flex;
+    min-width: 200px;
+    justify-content: space-evenly;
+}
+
+.action_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Main section */
+.banner_container {
+    margin: 40px 0;
+}
+.banner_image {
+    width: 100%;
+}
+
+.category_heading {
+    text-transform: uppercase;
+    color: #3e4152;
+    letter-spacing: .15em;
+    font-size: 1.8em;
+    margin: 50px 0 10px 30px;
+    max-height: 5em;
+    font-weight: 700;
+}
+
+.category_items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.sale_item {
+    width: 250px;
+}
+
+.footer_container {
+    padding: 30px 0px 40px 0px;
+    background: #FAFBFC;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.footer_column {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer_column h3 {
+    color: #282c3f;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.footer_column a {
+    color: #696b79;
+    font-size: 15px;
+    text-decoration: none;
+    padding-bottom: 5px;
+}
+
+.copyright {
+    color: #94969f;
+    text-align: end;
+    padding: 15px;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo_container">
+            <a href="#"><img class="myntra_home" src="https://media.istockphoto.com/id/1185675328/vector/shopping-cart-icon-with-editable-stroke-and-pixel-perfect.jpg?s=1024x1024&w=is&k=20&c=DdebPmmIIIzliTIzHxcSJ6EVywl4e0M0Oa-J-D3seJk=" alt="Home"></a>
+        </div>
+        <nav class="nav_bar">
+            <a href="#">Men</a>
+            <a href="#">Women</a>
+            <a href="#">Kids</a>
+            <a href="#">Home & Living</a>
+            <a href="login.html">Login</a>
+            <a href="signup.html">signup <sup>New</sup></a>
+        </nav>
+        <div class="search_bar">
+            <span class="material-symbols-outlined search_icon">search</span>
+            <input class="search_input" placeholder="Search for products, brands and more">
+        </div>
+        <div class="action_bar">
+            <div class="action_container">
+                <span class="material-symbols-outlined action_icon">person</span>
+                <span class="action_name">Profile</span>
+            </div>
+
+            <div class="action_container">
+                <span class="material-symbols-outlined action_icon">favorite</span>
+                <span class="action_name">Wishlist</span>
+            </div>
+
+            <div class="action_container">
+              <a href="product.html" style="text-decoration: none; color: black; "><span class="material-symbols-outlined action_icon">shopping_bag</span>
+              </a>
+              <span class="action_name">Bag <span style="font-weight: bold;">2</span></span>
+            </div>
+        </div>
+    </header>
+    <main>
+
+        <div class="category_heading" style="display: flex;justify-content: center; align-items: center;text-align: center;">Welcome to Home Page</div>
+        <div class="product_container" style="margin-top: 50px;">
+            <div class="product_card">
+                <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTPIO16a6VK5fj4S0wYWA9oyuamE5gFVfVc9jk27D-nZjGfuLMO6VGTvoFqiGggKdRv4jvFDm1hg0R_tTuqfNqzCeMDQaIB71nHihtX-V-lChtzxv8H_QH3knTN" alt="Product 1">
+                <div class="product_info">
+                    <h2 class="product_title">Zara Shirt</h2>
+                    <p class="product_price">$19.99</p>
+                    <button class="product_button">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product_card">
+                <img src="https://dakonda.com/422164-large_default/us-polo-assn-61456-polo.jpg" alt="Product 2">
+                <div class="product_info">
+                    <h2 class="product_title">U.S. Polo</h2>
+                    <p class="product_price">$29.99</p>
+                    <button class="product_button">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product_card">
+                <img src="https://lp2.hm.com/hmgoepprod?set=quality%5B79%5D%2Csource%5B%2F09%2Fb3%2F09b30aef127af5ce635ca43cac4a165b48a38282.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5B%5D%2Ctype%5BDESCRIPTIVESTILLLIFE%5D%2Cres%5Bm%5D%2Chmver%5B2%5D&call=url[file:/product/main]" alt="Product 3">
+                <div class="product_info">
+                    <h2 class="product_title">Mesh basketball vest top</h2>
+                    <p class="product_price">$39.99</p>
+                    <button class="product_button">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="category_items">
+            <a href="#"><img class="sale_item" src=""></a>
+            <a href="#"><img class="sale_item" src=""></a>
+            <a href="#"><img class="sale_item" src=""></a>
+            <a href="#"><img class="sale_item" src=""></a>
+            <a href="#"><img class="sale_item" src=""></a>
+            <a href="#"><img class="sale_item" src=""></a>
+            <a href="#"><img class="sale_item" src=""></a>
+            <a href="#"><img class="sale_item" src=""></a>
+            <a href="#"><img class="sale_item" src=""></a>
+            <a href="#"><img class="sale_item" src=""></a>
+            <a href="#"><img class="sale_item" src=""></a>
+            <a href="#"><img class="sale_item" src=""></a>
+        </div>
+
+        <div class="category_heading">SHOP BY CATEGORY</div>
+    </main>
+    <footer>
+        <div class="footer_container">
+            <div class="footer_column">
+                <h3>ONLINE SHOPPING</h3>
+
+                <a href="#">Men</a>
+                <a href="#">Women</a>
+                <a href="#">Kids</a>
+                <a href="#">Home & Living</a>
+                <a href="#">Beauty</a>
+                <a href="#">Gift Card</a>
+                <a href="#">Insider</a>
+            </div>
+
+            <div class="footer_column">
+                <h3>SPORTS</h3>
+
+                <a href="#">Tracks & Pants</a>
+                <a href="#">Running Shoes</a>
+                <a href="#">Shorts</a>
+                <a href="#">Tanks</a>
+                <a href="#">Vests</a>
+            </div>
+
+            <div class="footer_column">
+                <h3>CASUALS</h3>
+
+                <a href="#">Jeans</a>
+                <a href="#">T-Shirt</a>
+                <a href="#">Shorts</a>
+                <a href="#">Shoes</a>
+                <a href="#">Shirts</a>
+                <a href="#">Torso</a>
+                <a href="#">Hoodies</a>
+            </div>
+        </div>
+        <hr>
+
+        <div class="copyright">
+            © 2024 CodeOps All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>

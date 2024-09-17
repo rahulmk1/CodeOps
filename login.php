@@ -4,7 +4,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 //CORS
-
 header("Access-Control-Allow-Origin: *"); // Allow requests from any origin
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Allow specific HTTP methods
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Allow specific headers
